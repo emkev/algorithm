@@ -1,5 +1,6 @@
 /* 2016.05.21 pm 23:33 , try coding for similarity of two strings
 from the microsoft coding study book .
+2016.05.23 pm continue to finish .
 */
 
 #include <stdio.h>
