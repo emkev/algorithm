@@ -1,4 +1,5 @@
-/* 2016.05.24 rewrite code about tel numbers program in microsoft coding interview book . Error of the code is too much . :-<
+/* 2016.05.24 write code about tel numbers program in microsoft coding interview book .
+2016.05.25 continue to finish .
 */
 
 #include <stdio.h>
@@ -22,11 +23,13 @@ char c[10][10] = {
 "wxyz"
 };
 
+int count = 0 ;
+
 void way1()
 {
-  int i , j , k , n ;
+  int i , k ;
 
-  j = numlen ;
+  //j = numlen ;
   //k=total[number[numlen-1]]-1;
   //k = 0 ;
   
@@ -35,24 +38,25 @@ void way1()
     for(i = 0; i < numlen ; i++)
       printf("%c" , c[number[i]][answer[i]]);
     printf("\n");
-    
-    k = n - 1 ;
+    count++ ;
+
+    k = numlen - 1 ;
     while(k >= 0)
     {
-      if(anwser[k] < total[number[k]] - 1)
+      if(answer[k] < total[number[k]] - 1)
       {
-        anwser[k]++ ;
+        answer[k]++ ;
         break ;
       }
       else
       {
         /* back to first alphabet  pos for next number pos */
-        anwser[k] = 0 ;       
+        answer[k] = 0 ;       
         k-- ;
       }
     } /* while(1) */
 
-  if(j < 0)
+  if(k < 0)
     break ;
 
   } /* while(1) */
@@ -60,8 +64,8 @@ void way1()
 
 int main()
 {
-  //way1();
-
+  way1();
+  printf("count = %d\n" , count);
   printf("tel num\n");
   return(1);
 }
