@@ -62,9 +62,30 @@ void way1()
   } /* while(1) */
 }
 
+void way2(int *answer , int *number , int index , int numlen)
+{
+  int i ;
+
+  if(index == numlen)
+  {
+    for(i = 0; i < numlen ; i++)
+      printf("%c" , c[number[i]][answer[i]]);
+    printf("\n");
+    count++ ;
+
+    return ;
+  }
+
+  for(answer[index] = 0; answer[index] < total[number[index]] ; answer[index]++)
+  {
+    way2(answer,number,index+1,numlen) ;
+  }
+}
+
 int main()
 {
-  way1();
+  //way1(); 
+  way2(answer,number,0,numlen) ;
   printf("count = %d\n" , count);
   printf("tel num\n");
   return(1);
