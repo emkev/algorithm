@@ -1,14 +1,14 @@
 /* 2016.05.29 begin , search for words ,get short content as search results .
-*/
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 char *text = "qwthcdywtdh" ;
 char *str = "w d" ;
-int len = strlen(text) ;
-int qstrlen = strlen(str);
-int targetlen = len ;
+int len = 0 ;
+int qstrlen = 0 ;
+int targetlen = 0 ;
 int pBegin = 0 , pEnd = 0 ;
 int aBegin = 0 , aEnd = 0 ;
 
@@ -21,7 +21,7 @@ int reallen(char *inistr)
 
   inistrlen = strlen(inistr);
   printf("len=%d\n" , inistrlen);
-/* stupid way1
+  /* stupid way1
 
   for(i = 0 ; i < inistrlen ; i++)
   {
@@ -53,24 +53,24 @@ int reallen(char *inistr)
     }
 
   }
-*/
+  */
 
   // grace way2
   for(i = 0 ; i < inistrlen ; i++)
-  {
-    if(inistr[i]==' ')
-      m++;
-    else
-      break ;
-  }
+    {
+      if(inistr[i]==' ')
+	m++;
+      else
+	break ;
+    }
 
   for(i = inistrlen-1 ; i >= 0  ; i--)
-  {
-    if(inistr[i]==' ')
-      n++;
-    else
-      break ;
-  }
+    {
+      if(inistr[i]==' ')
+	n++;
+      else
+	break ;
+    }
 
   printf("s3 , m=%d , n=%d\n" , m , n);
   return (inistrlen - m - n) ;
@@ -80,7 +80,7 @@ char* grouping(char *inistr)
 {
   int i , j = 0 , k = 0 ;
   char *strgroup ;
-/*
+  /*
   strgroup=malloc(sizeof(int)*(reallen(inistr)));
 
   j = 0 ;
@@ -93,7 +93,7 @@ char* grouping(char *inistr)
     }
   }
 
-*/
+  */
 
   for(i = 0 ; i < qstrlen ; i++)
     if(inistr[i] != ' ')
@@ -102,13 +102,13 @@ char* grouping(char *inistr)
   strgroup=malloc(sizeof(int)*j);
 
   for(i = 0 ; i < qstrlen ; i++)
-  {
-    if(inistr[i] != ' ')
     {
-      strgroup[k] = inistr[i] ;
-      k++;
+      if(inistr[i] != ' ')
+	{
+	  strgroup[k] = inistr[i] ;
+	  k++;
+	}
     }
-  }
 
   return strgroup ;
 }
@@ -121,23 +121,23 @@ int isExistedAll(int spos , int epos)
 
   strgroup = grouping(str);
   printf("strgroup=%s\n",strgroup);
-
+  //printf("text=%s\n" , text);
   qstrreallen = strlen(strgroup);
 
   for(i = 0 ; i < qstrreallen ; i++)
-  {
-    existed = 0 ;
-    for(j = 0 ; j < len ; j++)
     {
-      if(strgroup[i] == text[j])
-      {
-        existed = 1 ;
-      }
-    }
+      existed = 0 ;
+      for(j = spos ; j <= epos  ; j++)
+	{
+	  if(strgroup[i] == text[j])
+	    {
+	      existed = 1 ;
+	    }
+	}
 
-    if(existed == 0)
-      return 0 ;
-  }
+      if(existed == 0)
+	return 0 ;
+    }
 
   return 1 ;
 }
@@ -145,46 +145,51 @@ int isExistedAll(int spos , int epos)
 void catching()
 {
   while(pEnd < len)
-  {
+    {
     
-    while(!isExistedAll(pBegin , pEnd) && pEnd < len )
-    {
-      pEnd++ ;
-    }
+      while(!isExistedAll(pBegin , pEnd) && pEnd < len )
+	{
+	  pEnd++ ;
+	}
 
-    while((isExistedAll(pBegin , pEnd)) && (pEnd-pBegin < targetlen))
-    {
-      //if((isExistedAll(pBegin , pEnd)) && (pEnd-pBegin < targetlen))
-      //{
-        targetlen = pEnd-pBegin ;
-        aBegin = pBegin ;
-        aEnd = pEnd ;
-      //}
-      pBegin++ ;
-    }
-    //if(pEnd >= len)
+      while((isExistedAll(pBegin , pEnd)) && (pEnd-pBegin < targetlen))
+	{
+	  //if((isExistedAll(pBegin , pEnd)) && (pEnd-pBegin < targetlen))
+	  //{
+	  targetlen = pEnd-pBegin ;
+	  aBegin = pBegin ;
+	  aEnd = pEnd ;
+	  //}
+	  pBegin++ ;
+	}
+      //if(pEnd >= len)
       //break;
-  }
+    }
 }
 
 int main()
 {
   int i ;
   char *str1 = "  st yr   " ;
-/*
+
+  len = strlen(text);
+  qstrlen = strlen(str);
+  targetlen = len ;
+
+  /*
   char *str3 = " ";
 
   if(str3[0] == ' ')
     printf("s2\n");
-*/
+  */
   //printf("reallen=%d\n" , reallen(str1));
 
   printf("existed=%d\n" , isExistedAll(0,1));
 
   for(i = 0 ; i < 3 ; i++)
-  {
-    printf("%c\n" , text[i]);
-  }
+    {
+      printf("%c\n" , text[i]);
+    }
   printf("%s\n" , text);
 
   printf("string query\n");
