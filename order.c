@@ -47,7 +47,6 @@ void ordering(void)
   } /* while(j < 0)  */
 
 }
-
 /*
 void binary_ordering(void)
 {
@@ -69,7 +68,6 @@ void binary_ordering(void)
   }
 }
 */
-
 void plotcos(void)
 {
   int i , a ;
@@ -105,13 +103,22 @@ void print_scan(int i , int j)
 void calu()
 {
   int a , b , c ;
+  char s ;
 
   printf("please input numbers :\n");
-  scanf("%d %d" , &a , &b);
+  scanf("%d %c %d" , &a , &s , &b);
 
-  c = a + b ;
+  if(s == '+')
+    c = a + b ;
+  else if(s == '-')
+    c = a - b ;
+  else if(s == '*')
+    c = a * b ;
+  else if(s == '/')
+    c = a / b ;
 
   printf("result : %d\n" , c);
+  printf("sign : %c\n" , s);
 
 }
 
