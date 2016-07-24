@@ -48,6 +48,7 @@ void ordering(void)
 
 }
 
+/*
 void binary_ordering(void)
 {
   int i , j , temp ;
@@ -65,8 +66,9 @@ void binary_ordering(void)
 
     j /= 2 ;
 
-  } /*  while(j > 0)  */
+  }
 }
+*/
 
 void plotcos(void)
 {
