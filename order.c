@@ -5,8 +5,12 @@
 #include <stdlib.h>
 #include <math.h>
 
-int array[6] = { 2 , 7 , 4 , 9 , 3 , 2 } ;
+int array[6] = { 2 , 4 , 8 , 9 , 8 , 2 } ;
 int array_length = 6 ;
+
+int arraytime[11] ; 
+int arraytime_length = 11 ;
+
 
 /*  output factors of array  */
 void printf_output(void)
@@ -68,6 +72,119 @@ void binary_ordering(void)
   }
 }
 */
+
+/*  suit for same-data being most and data-domain ...   */
+void order_time()
+{
+  int i , j , t ;
+
+  for(i = 0 ; i < arraytime_length ; i++)
+  {
+    arraytime[i] = 0 ;
+  }
+
+  /*
+  for(i = 0 ; i < array_length ; i++)
+  {
+    arraytime[array[i]] += 1 ;
+  }
+  */
+
+  for(i = 0 ; i < array_length ; i++)
+  {
+    scanf("%d" , &t);
+    arraytime[t]++ ;
+  }
+
+  for(i = 0 ; i < arraytime_length ; i++)
+  {
+    for(j = 0 ; j < arraytime[i] ; j++)
+    {
+      printf("%d " , i) ;
+    }
+  }
+
+  printf("\n");
+
+}
+
+/*  speeding order  */
+void order_speeding()
+{
+  int i , j , n , t ;
+
+  printf("Please input array length :\n");
+  scanf("%d" , &n);
+
+  printf("Please input array factors :\n");
+
+  /*  get values  */
+  for(i = 0 ; i < n ; i++)
+  {
+    scanf("%d" , &t) ;
+    array[i] = t ;
+  }
+
+  resur_change(0 , array_length - 1) ;
+
+  /*  display  */
+  for(i = 0 ; i < array_length ; i++)
+  {
+    printf("%d " , array[i]);
+  }
+  printf("\n");
+
+}
+
+void resur_change(int spos , int epos)
+{
+  int a , b , mv , temp ;
+
+  if(spos >= epos) return ;
+
+  mv = array[spos] ;
+  a = spos ;
+  b = epos ;
+
+  while(1)
+  {
+    /*  first compute end pos direction  */
+    while(b > a)
+    {
+      if(array[b] < mv) break ;
+      b-- ;
+    }
+
+    while(a < b)
+    {
+      if(array[a] > mv) break ;
+      a++ ;
+    }
+
+    if(a < b)
+    {
+      temp = array[a] ;
+      array[a] = array[b] ;
+      array[b] = temp ;
+    }
+
+    /*  exchange spos values ...  */
+    temp = array[spos] ;
+    array[spos] = array[a] ;
+    array[a] = temp ;
+
+    if(a == b) break ;
+
+  }
+
+  /*
+  if(spos != epos)
+    resur_change(spos , m - 1) ;
+
+  resur_change(m + 1 , epos) ;
+  */
+}
+
 void plotcos(void)
 {
   int i , a ;
@@ -93,11 +210,6 @@ void plotcos(void)
 
   } /*  for(k = ; k >= -1 ; k -= 0.1)  */
 
-}
-
-void print_scan(int i , int j)
-{
-  printf("scan numbers : %d and %d\n" , i , j);
 }
 
 void calu()
@@ -132,7 +244,9 @@ int main(int argc , char *argv[])
 
   //plotcos();
 
-  calu();
+  //calu();
+
+  order_time();
 
   printf("order\n");
   exit(1);
