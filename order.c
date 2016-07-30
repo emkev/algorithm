@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-int array[6] = { 2 , 4 , 8 , 9 , 8 , 2 } ;
+//int array[6] = { 2 , 4 , 8 , 9 , 8 , 2 } ;
+int array[6] ;
 int array_length = 6 ;
 
 int arraytime[11] ; 
@@ -108,6 +109,54 @@ void order_time()
 
 }
 
+void resur_change(int spos , int epos)
+{
+  int a , b , mv , temp ;
+
+  if(spos > epos) return ;
+
+  mv = array[spos] ;
+  a = spos ;
+  b = epos ;
+
+  while(1)
+  {
+    /*  It must compute end-pos direction at first .   */
+    while(b > a)
+    {
+      if(array[b] < mv) break ;
+      b-- ;
+    }
+
+    while(a < b)
+    {
+      if(array[a] > mv) break ;
+      a++ ;
+    }
+
+    if(a < b)
+    {
+      temp = array[a] ;
+      array[a] = array[b] ;
+      array[b] = temp ;
+    }
+
+    if(a == b) break ;
+
+  }
+
+  /*  exchange spos with the same number ( means the situation a==b )  */
+  array[spos] = array[a] ;
+  array[a] = mv ;
+
+  /*  continue to call   */
+  resur_change(spos , a - 1) ;
+
+  resur_change(a + 1 , epos) ;
+
+}
+
+
 /*  speeding order  */
 void order_speeding()
 {
@@ -128,61 +177,12 @@ void order_speeding()
   resur_change(0 , array_length - 1) ;
 
   /*  display  */
-  for(i = 0 ; i < array_length ; i++)
+  for(i = 0 ; i < n ; i++)
   {
     printf("%d " , array[i]);
   }
   printf("\n");
 
-}
-
-void resur_change(int spos , int epos)
-{
-  int a , b , mv , temp ;
-
-  if(spos >= epos) return ;
-
-  mv = array[spos] ;
-  a = spos ;
-  b = epos ;
-
-  while(1)
-  {
-    /*  first compute end pos direction  */
-    while(b > a)
-    {
-      if(array[b] < mv) break ;
-      b-- ;
-    }
-
-    while(a < b)
-    {
-      if(array[a] > mv) break ;
-      a++ ;
-    }
-
-    if(a < b)
-    {
-      temp = array[a] ;
-      array[a] = array[b] ;
-      array[b] = temp ;
-    }
-
-    /*  exchange spos values ...  */
-    temp = array[spos] ;
-    array[spos] = array[a] ;
-    array[a] = temp ;
-
-    if(a == b) break ;
-
-  }
-
-  /*
-  if(spos != epos)
-    resur_change(spos , m - 1) ;
-
-  resur_change(m + 1 , epos) ;
-  */
 }
 
 void plotcos(void)
@@ -246,7 +246,9 @@ int main(int argc , char *argv[])
 
   //calu();
 
-  order_time();
+  //order_time();
+
+  order_speeding();
 
   printf("order\n");
   exit(1);
