@@ -52,27 +52,6 @@ void ordering(void)
   } /* while(j < 0)  */
 
 }
-/*
-void binary_ordering(void)
-{
-  int i , j , temp ;
-
-  j = array_length / 2 ;
-
-  while(j > 1)
-  {
-    if(array[j - 1] > array[j + 1])
-    {
-      temp = array[i - 1] ;
-      array[i - 1] = array[i + 1] ;
-      array[i + 1] = temp ;
-    }
-
-    j /= 2 ;
-
-  }
-}
-*/
 
 /*  suit for same-data being most and data-domain ...   */
 void order_time()
@@ -165,7 +144,7 @@ void order_speeding()
   printf("Please input array length :\n");
   scanf("%d" , &n);
 
-  printf("Please input array factors :\n");
+  printf("Please input %d array factors :\n" , n);
 
   /*  get values  */
   for(i = 0 ; i < n ; i++)
@@ -236,8 +215,6 @@ void calu()
 
 int main(int argc , char *argv[])
 {
-  int m , n , k ;
-
   //printf_output();
   //ordering();
   //printf_output();
