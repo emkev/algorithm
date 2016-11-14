@@ -115,11 +115,21 @@ void bubble2(int *em , int len)
 }
 
 
-/* shell */
+/* 
+   shell
+ 
+   math.floor(x) :
+   returns a floating-point value representing the largest 
+   integer that <= x . 
+
+   returns integer one that >= x 
+   by the fractional part as to four-out-and-five-in way 
+*/
 void shell(int *em , int len)
 {
-  int h = 1 ;
-  int i , j ;
+  int h , i , j ;
+  
+  h = 1 ;
 
   while( h < floor(len/3) ) {
     h = h * 3 + 1 ;
