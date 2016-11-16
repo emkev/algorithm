@@ -15,18 +15,18 @@ int sg[4] = { 0,1,2,3 } ;
 
 int answer = 6 ;
 
-float lenF = (float)(len-1) ;
-int quaArea;
-quaArea = (int)pow(4.0 , lenF);
-int show1[quaArea] ;
-int show2[quaArea] ;
+//float lenF = (float)(len-1) ;
+//int quaArea;
+//quaArea = (int)pow(4.0 , lenF);
+int *show1 ;
+int *show2 ;
 int counttime = 0 ;
 
-int rec[len-1] ;
+int *rec ;
 int recCount = 0 ;
 
 int selQua = 10 ;
-int sel[selQua][len-1] ;
+int **sel ;
 int selCount = 0 ;
 
 /*
@@ -62,7 +62,9 @@ void calu(int *nb)
   int k1 , k2 , k3 ;
 
   for(i = 0 ; i < 4 ; i++) {
-    k1 = caluRun( nb[0] , sg[i] ,            nb[1] ) ;
+    k1 = caluRun( nb[0] , 
+                  sg[i] ,
+                  nb[1] ) ;
 
     for(j = 0 ; j < 4 ; j++) {
       k2 =  caluRun( k1  , 
@@ -71,10 +73,11 @@ void calu(int *nb)
 
       for(a = 0 ; a < 4 ; a++) {
         k3 =  caluRun( k2  , 
-                     sg[a] , 
-                     nb[3] ) ;
+		       sg[a] , 
+		       nb[3] ) ;
 
-        printf("%d \n" , k3);             show1[counttime] = k3 ;
+        printf("%d \n" , k3);
+        show1[counttime] = k3 ;
         counttime++ ;
 
       }
@@ -93,33 +96,32 @@ void caluResNum(int tmp)
 
     if( count < len - 2 ) {
       
-        k = caluRun(
-              tmp ,
-              sg[i] ,
-              numbers[count+1] );
+      k = caluRun(
+		  tmp ,
+		  sg[i] ,
+		  numbers[count+1] );
 
-        rec[recCount] = sg[i] ;
-        recCount++ ;
+      rec[recCount] = sg[i] ;
+      recCount++ ;
 
-        count++ ;
-        caluResNum( k ) ;
+      count++ ;
+      caluResNum( k ) ;
     }
     else {
       
       a = caluRun(
-             tmp ,
-             sg[i] ,
-             numbers[count+1] ) ;
+		  tmp ,
+		  sg[i] ,
+		  numbers[count+1] ) ;
 
       rec[recCount] = sg[i] ;
       
-
-      //printf("%d \n" , a );
+      printf("%d \n" , a );
       show2[counttime] = a ;
       counttime++ ;
 
       if( a == answer ) {
-        for(b=0 ; i<len-1 ; i++) {
+        for(b=0 ; b<len-1 ; b++) {
           sel[selCount][b]=rec[b];
         }
         selCount++ ;
@@ -161,7 +163,20 @@ void output(int **em , int qua , int len)
 
 int main(int argc , char *argv[])
 {
-  int a , i , j ;
+  int a , i , j , b , c ;
+  float lenF ;
+  int quaArea ;
+
+  lenF = (float)(len - 1) ;
+  quaArea = (int)pow(4.0 , lenF) ;
+  show1 = malloc(sizeof(int) * quaArea) ;
+  show2 = malloc(sizeof(int) * quaArea) ;
+
+  rec = malloc(sizeof(int) * (len-1)) ;
+  sel = malloc(sizeof(int *) * selQua) ;
+  for( b = 0 ; b < selQua ; b++) {
+    sel[b] = malloc(sizeof(int) * (len-1)) ;
+  }
 
   //calu(numbers);
   //counttime = 0 ;
@@ -173,8 +188,9 @@ int main(int argc , char *argv[])
 
   //output(sel , selQua , len-1);
 
+  
   printf("select show : \n");
-  for(i = 0 ; i < selQua ; i++ ) {
+  for(i = 0 ; i < selCount ; i++ ) {
     for(j = 0 ; j < len-1 ; j++) {
 
       if(sel[i][j] == 0)
@@ -183,11 +199,13 @@ int main(int argc , char *argv[])
         printf("- ");
       else if(sel[i][j] == 2)
         printf("* ");
-      else if(sel[i][j] == 3)             printf("/ ");
+      else if(sel[i][j] == 3)     
+        printf("/ ");
     }
     printf("\n");
   }
   printf("\n");
+  
 
   printf("small question\n");
   exit(1);
