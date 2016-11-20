@@ -179,7 +179,7 @@ int main(int argc , char *argv[])
   //counttime = 0 ;
   printf("\n");
 
-  caluResNum(3 , &numbers);
+  caluResNum(3 , numbers);
 
   //printf("compare result : %d\n" ,compare(show1 , show2 , 64) );
 
