@@ -37,6 +37,17 @@ void transfer(int **priEm , int pos , int len , int *subEm)
 }
 */
 
+/* 2016.11.21 am 01:11 */
+void GlobalAddrChange(int *nb) 
+{
+  int i ;
+
+  for(i = 0 ; i < len ; i++) {
+    nb[i] = 4 ;
+  }
+
+}
+
 int caluRun(int a, int s, int b)
 {
   int c ;
@@ -161,6 +172,7 @@ void output(int **em , int qua , int len)
 int main(int argc , char *argv[])
 {
   int a , i , j , b , c ;
+  int k ;
   float lenF ;
   int quaArea ;
 
@@ -179,6 +191,7 @@ int main(int argc , char *argv[])
   //counttime = 0 ;
   printf("\n");
 
+  /* means transfer the address of a Global Variable . */
   caluResNum(3 , numbers);
 
   //printf("compare result : %d\n" ,compare(show1 , show2 , 64) );
@@ -203,6 +216,12 @@ int main(int argc , char *argv[])
   }
   printf("\n");
   
+  GlobalAddrChange(numbers);
+
+  for(k = 0 ; k < len ; k++) {
+    printf("%d " , numbers[k]);
+  }
+  printf("\n");
 
   printf("small question\n");
   exit(1);
