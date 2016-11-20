@@ -15,9 +15,6 @@ int sg[4] = { 0,1,2,3 } ;
 
 int answer = 6 ;
 
-//float lenF = (float)(len-1) ;
-//int quaArea;
-//quaArea = (int)pow(4.0 , lenF);
 int *show1 ;
 int *show2 ;
 int counttime = 0 ;
@@ -88,7 +85,7 @@ void calu(int *nb)
 }
 
 
-void caluResNum(int tmp)
+void caluResNum(int tmp , int *nb)
 {
   int i , k =0 , a = 0 , b ;
 
@@ -99,20 +96,20 @@ void caluResNum(int tmp)
       k = caluRun(
 		  tmp ,
 		  sg[i] ,
-		  numbers[count+1] );
+		  nb[count+1] );
 
       rec[recCount] = sg[i] ;
       recCount++ ;
 
       count++ ;
-      caluResNum( k ) ;
+      caluResNum( k , nb ) ;
     }
     else {
       
       a = caluRun(
 		  tmp ,
 		  sg[i] ,
-		  numbers[count+1] ) ;
+		  nb[count+1] ) ;
 
       rec[recCount] = sg[i] ;
       
@@ -182,7 +179,7 @@ int main(int argc , char *argv[])
   //counttime = 0 ;
   printf("\n");
 
-  caluResNum(3);
+  caluResNum(3 , &numbers);
 
   //printf("compare result : %d\n" ,compare(show1 , show2 , 64) );
 
